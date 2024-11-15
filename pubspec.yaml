@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # 永久储存
   shared_preferences: ^2.2.3
 
 dev_dependencies:
