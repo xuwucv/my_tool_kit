@@ -13,7 +13,12 @@ class MyPrint {
   // 默认为开启日志
   bool _isLoggingEnabled = true;
 
-  // 设置日志开关
+  /// 初始化方法，可以进行日志相关的配置
+  void init({bool isLoggingEnabled = true}) {
+    _isLoggingEnabled = isLoggingEnabled;
+  }
+
+  /// 设置日志开关
   void setLoggingEnabled(bool isEnabled) {
     _isLoggingEnabled = isEnabled;
   }

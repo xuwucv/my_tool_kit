@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+//用于永久储存
 class MyStorage {
   static final MyStorage _instance = MyStorage._internal();
   factory MyStorage() => _instance;
