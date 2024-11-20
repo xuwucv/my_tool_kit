@@ -1,7 +1,7 @@
 // lib/print_helper.dart
 
 class MyPrint {
-  // 私有静态变量存储唯一实例
+  // 私有静态变量存储唯一实例1
   static final MyPrint _instance = MyPrint._internal();
 
   // 工厂构造函数返回实例
