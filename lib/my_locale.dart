@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageService extends GetxService {
   Locale locale = const Locale('en', 'US');
-
+  static LanguageService get to => Get.find<LanguageService>();
   @override
   void onInit() async {
     super.onInit();
