@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageService extends GetxService {
-  Locale locale = const Locale('en', 'US');
+  late Locale locale; // 使用 late 声明，表示稍后会初始化
   static LanguageService get to => Get.find<LanguageService>();
-  @override
-  void onInit() async {
-    super.onInit();
-    // 执行一些同步的初始化操作
+
+  Future<void> initialize() async {
     locale = await getCurrentLanguage();
   }
 
