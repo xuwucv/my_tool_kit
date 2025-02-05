@@ -3,7 +3,7 @@
 ```
  my_tool_kit:
   git:  
-    utl: https://gitee.com/wang-linlin-2-0/my_tool_kit.git
+    url: https://gitee.com/wang-linlin-2-0/my_tool_kit.git
     ref: v1.0.0
 ```
 
