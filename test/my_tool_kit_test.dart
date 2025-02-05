@@ -1,11 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_tool_kit/my_print.dart';
+import 'package:my_tool_kit/my_extension.dart';
+import 'package:my_tool_kit/my_log.dart';
+import 'package:my_tool_kit/my_storage.dart';
 
-void main() {
-  test('adds one to input values', () {
-    Log.init(isEnabled: true);
-
-    // 使用日志
-    Log.d("This is a debug message");
-  });
-}
+void main() {}

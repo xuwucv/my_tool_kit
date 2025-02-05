@@ -12,6 +12,10 @@ dependencies:
     sdk: flutter
   # 永久储存
   shared_preferences: ^2.2.3
+  # 状态管理工具,路由
+  get: ^4.6.6
+  # 底部表单
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
