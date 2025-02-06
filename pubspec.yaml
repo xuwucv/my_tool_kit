@@ -13,7 +13,8 @@ dependencies:
   shared_preferences: ^2.2.3
   # 状态管理工具,路由
   get: ^4.6.6
-
+  # 下拉刷新和上拉加载
+  easy_refresh: ^3.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
