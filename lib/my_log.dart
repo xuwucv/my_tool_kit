@@ -27,7 +27,7 @@ class MyLog {
   }
 
   /// 打印日志
-  static void log(String message,
+  static void log(dynamic message,
       {LogLevel level = LogLevel.debug, String? tag}) {
     if (!isEnabled) return; // 日志功能被禁用
 
@@ -43,27 +43,27 @@ class MyLog {
   }
 
   /// 打印详细信息日志
-  static void v(String message, {String? tag}) {
+  static void v(dynamic message, {String? tag}) {
     log(message, level: LogLevel.verbose, tag: tag);
   }
 
   /// 打印调试日志
-  static void d(String message, {String? tag}) {
+  static void d(dynamic message, {String? tag}) {
     log(message, level: LogLevel.debug, tag: tag);
   }
 
   /// 打印信息日志
-  static void i(String message, {String? tag}) {
+  static void i(dynamic message, {String? tag}) {
     log(message, level: LogLevel.info, tag: tag);
   }
 
   /// 打印警告日志
-  static void w(String message, {String? tag}) {
+  static void w(dynamic message, {String? tag}) {
     log(message, level: LogLevel.warning, tag: tag);
   }
 
   /// 打印错误日志
-  static void e(String message, {String? tag}) {
+  static void e(dynamic message, {String? tag}) {
     log(message, level: LogLevel.error, tag: tag);
   }
 }
