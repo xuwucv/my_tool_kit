@@ -57,8 +57,8 @@ class _MyRefreshState extends State<MyRefresh> {
   Widget build(BuildContext context) {
     return EasyRefresh(
       controller: _controller,
-      header: widget.header ?? const ClassicHeader(), // 默认 ClassicHeader
-      footer: widget.footer ?? const ClassicFooter(), // 默认 ClassicFooter
+      header: widget.header ?? const MaterialHeader(), // 默认 ClassicHeader
+      footer: widget.footer ?? const MaterialFooter(), // 默认 ClassicFooter
       onRefresh: widget.enableRefresh ? widget.onRefresh : null,
       onLoad: widget.enableLoad ? widget.onLoad : null,
       child: Padding(
