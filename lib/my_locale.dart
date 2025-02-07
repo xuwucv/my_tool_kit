@@ -51,14 +51,14 @@ class LanguageService extends GetxService {
   }
 
   // 保存语言
-  Future<void> saveLanguage(Language langCode) async {
+  Future<void> saveLanguage({required Language langCode}) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('language_code', langCode.name);
   }
 
   // 切换语言
-  Future<void> changeLanguage(Language langCode) async {
-    await saveLanguage(langCode);
+  Future<void> changeLanguage({required Language langCode}) async {
+    await saveLanguage(langCode: langCode);
     Get.updateLocale(langCode.toLocale());
   }
 }
