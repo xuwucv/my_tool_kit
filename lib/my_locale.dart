@@ -2,6 +2,34 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum Language {
+  /// 英文（美国）
+  en_US,
+
+  /// 中文（中国）
+  zh_CN,
+
+  /// 日语（日本）
+  ja_JP,
+
+  /// 法语（法国）
+  fr_FR;
+
+  /// 从字符串解析 `Language`
+  static Language fromCode(String code) {
+    return Language.values.firstWhere(
+      (lang) => lang.name == code,
+      orElse: () => Language.en_US,
+    );
+  }
+
+  /// 转换为 `Locale`
+  Locale toLocale() {
+    final parts = name.split('_');
+    return Locale(parts[0], parts[1]);
+  }
+}
+
 class LanguageService extends GetxService {
   late Locale locale; // 使用 late 声明，表示稍后会初始化
   static LanguageService get to => Get.find<LanguageService>();
@@ -23,14 +51,14 @@ class LanguageService extends GetxService {
   }
 
   // 保存语言
-  Future<void> saveLanguage(String langCode) async {
+  Future<void> saveLanguage(Language langCode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('language_code', langCode);
+    await prefs.setString('language_code', langCode.name);
   }
 
   // 切换语言
-  Future<void> changeLanguage(String langCode) async {
+  Future<void> changeLanguage(Language langCode) async {
     await saveLanguage(langCode);
-    Get.updateLocale(Locale(langCode.split('_')[0], langCode.split('_')[1]));
+    Get.updateLocale(langCode.toLocale());
   }
 }
