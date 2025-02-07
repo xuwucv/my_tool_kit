@@ -17,10 +17,18 @@ enum Language {
 
   /// 从字符串解析 `Language`
   static Language fromCode(String code) {
-    return Language.values.firstWhere(
+    // 先尝试完整匹配
+    final match = Language.values.firstWhere(
       (lang) => lang.name == code,
-      orElse: () => Language.en_US,
+      orElse: () {
+        // 如果找不到完整匹配，就尝试匹配语言代码（zh、en等）
+        return Language.values.firstWhere(
+          (lang) => lang.name.startsWith(code),
+          orElse: () => Language.en_US, // 默认返回英文
+        );
+      },
     );
+    return match;
   }
 
   /// 转换为 `Locale`
