@@ -48,7 +48,7 @@ class BluetoothService extends GetxService {
 
   /// 监听蓝牙状态变化
   void _listenToBluetoothState() {
-    stateSubscription =
+    stateSubscription ??=
         FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
       if (state == BluetoothAdapterState.on) {
         isBluetoothOn.value = true;

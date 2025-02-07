@@ -5,3 +5,4 @@ export 'my_storage.dart';
 export 'my_extension.dart';
 export 'my_locale.dart';
 export 'my_refresh.dart';
+export 'my_bluetooth.dart';
