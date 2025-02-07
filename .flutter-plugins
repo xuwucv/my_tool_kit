@@ -1,6 +1,12 @@
 # This is a generated file; do not edit or check into version control.
+flutter_blue_plus=/Users/chenkai/.pub-cache/hosted/pub.dev/flutter_blue_plus-1.34.5/
 path_provider_linux=/Users/chenkai/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
 path_provider_windows=/Users/chenkai/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/
+permission_handler=/Users/chenkai/.pub-cache/hosted/pub.dev/permission_handler-11.3.1/
+permission_handler_android=/Users/chenkai/.pub-cache/hosted/pub.dev/permission_handler_android-12.0.13/
+permission_handler_apple=/Users/chenkai/.pub-cache/hosted/pub.dev/permission_handler_apple-9.4.5/
+permission_handler_html=/Users/chenkai/.pub-cache/hosted/pub.dev/permission_handler_html-0.1.3+5/
+permission_handler_windows=/Users/chenkai/.pub-cache/hosted/pub.dev/permission_handler_windows-0.2.1/
 shared_preferences=/Users/chenkai/.pub-cache/hosted/pub.dev/shared_preferences-2.2.3/
 shared_preferences_android=/Users/chenkai/.pub-cache/hosted/pub.dev/shared_preferences_android-2.2.2/
 shared_preferences_foundation=/Users/chenkai/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/
