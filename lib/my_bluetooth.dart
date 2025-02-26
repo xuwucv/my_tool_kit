@@ -60,16 +60,16 @@ class BluetoothService extends GetxService {
 
   /// 监听蓝牙状态变化
   void _listenToBluetoothState() {
-    if (!kIsWeb && Platform.isAndroid && !isBluetoothOn.value) {
-      _turnOnBluetooth();
-    }
     stateSubscription ??= FlutterBluePlus.adapterState
         .listen((BluetoothAdapterState state) async {
       if (state == BluetoothAdapterState.on) {
         // 蓝牙开启时
         isBluetoothOn.value = true;
+      } else if (state == BluetoothAdapterState.off) {
+        print("我关闭蓝牙了");
+        isBluetoothOn.value = false;
         if (!kIsWeb && Platform.isAndroid) {
-          await _turnOnBluetooth();
+          await turnOnBluetooth();
         }
       } else {
         // 蓝牙关闭时
@@ -79,8 +79,8 @@ class BluetoothService extends GetxService {
   }
 
   /// 尝试开启蓝牙（仅限 Android）
-  Future<void> _turnOnBluetooth() async {
-    if (isBluetoothPermissionGranted.value) {
+  Future<void> turnOnBluetooth() async {
+    if (isBluetoothPermissionGranted.value && !isBluetoothOn.value) {
       try {
         await FlutterBluePlus.turnOn();
       } catch (e) {
