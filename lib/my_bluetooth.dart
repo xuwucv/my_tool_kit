@@ -66,7 +66,6 @@ class BluetoothService extends GetxService {
         // 蓝牙开启时
         isBluetoothOn.value = true;
       } else if (state == BluetoothAdapterState.off) {
-        print("我关闭蓝牙了");
         isBluetoothOn.value = false;
         if (!kIsWeb && Platform.isAndroid) {
           await turnOnBluetooth();
@@ -95,10 +94,20 @@ class BluetoothService extends GetxService {
   Future<void> startScanning() async {
     if (isBluetoothOn.value && !isScanning.value) {
       isScanning.value = true;
-      scanResultsSubscription ??= FlutterBluePlus.scanResults.listen((results) {
-        scanResults.value = results;
+      scanResultsSubscription ??= FlutterBluePlus.onScanResults.listen(
+        (results) {
+          if (results.isNotEmpty) {
+            ScanResult r = results.last; // the most recently found device
+            print(
+                '${r.device.remoteId}: "${r.advertisementData.advName}" found!');
+          }
+        },
+        onError: (e) => print(e),
+      );
+      FlutterBluePlus.startScan(timeout: const Duration(seconds: 30)).then((_) {
+        // 扫描结束后
+        isScanning.value = false; // 设置扫描状态为停止
       });
-      FlutterBluePlus.startScan(timeout: const Duration(seconds: 4));
     }
   }
 
