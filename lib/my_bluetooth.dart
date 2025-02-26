@@ -19,6 +19,9 @@ class BluetoothService extends GetxService {
   /// 扫描到的设备列表
   final RxList<ScanResult> scanResults = <ScanResult>[].obs;
 
+  /// 是否有蓝牙权限
+  final RxBool isBluetoothPermissionGranted = false.obs;
+
   // 内部订阅，方便关闭时取消
   StreamSubscription<BluetoothAdapterState>? stateSubscription;
   StreamSubscription<List<ScanResult>>? scanResultsSubscription;
@@ -41,16 +44,26 @@ class BluetoothService extends GetxService {
     if (await Permission.bluetooth.isDenied ||
         await Permission.bluetoothScan.isDenied ||
         await Permission.bluetoothConnect.isDenied) {
-      await [
+      final data = await [
         Permission.bluetooth,
         Permission.bluetoothScan,
         Permission.bluetoothConnect,
       ].request();
+      print("我正在请求蓝牙权限");
+      isBluetoothPermissionGranted.value =
+          data[Permission.bluetooth]!.isGranted ||
+              data[Permission.bluetoothScan]!.isGranted ||
+              data[Permission.bluetoothConnect]!.isGranted;
+    } else {
+      isBluetoothPermissionGranted.value = true;
     }
   }
 
   /// 监听蓝牙状态变化
   void _listenToBluetoothState() {
+    if (!kIsWeb && Platform.isAndroid && !isBluetoothOn.value) {
+      _turnOnBluetooth();
+    }
     stateSubscription ??= FlutterBluePlus.adapterState
         .listen((BluetoothAdapterState state) async {
       if (state == BluetoothAdapterState.on) {
@@ -68,8 +81,17 @@ class BluetoothService extends GetxService {
 
   /// 尝试开启蓝牙（仅限 Android）
   Future<void> _turnOnBluetooth() async {
-    if (await Permission.bluetooth.request().isGranted) {
-      await FlutterBluePlus.turnOn();
+    print('尝试开启蓝牙');
+
+    if (isBluetoothPermissionGranted.value) {
+      try {
+        await FlutterBluePlus.turnOn();
+        print('Bluetooth is turned on');
+      } catch (e) {
+        print('Error turning on Bluetooth: $e');
+      }
+    } else {
+      print('没有蓝牙权限');
     }
   }
 
