@@ -97,17 +97,21 @@ class BluetoothService extends GetxService {
       scanResultsSubscription ??= FlutterBluePlus.onScanResults.listen(
         (results) {
           if (results.isNotEmpty) {
-            ScanResult r = results.last; // the most recently found device
-            print(
-                '${r.device.remoteId}: "${r.advertisementData.advName}" found!');
+            scanResults.value = results;
           }
         },
         onError: (e) => print(e),
       );
-      FlutterBluePlus.startScan(timeout: const Duration(seconds: 30)).then((_) {
-        // 扫描结束后
-        isScanning.value = false; // 设置扫描状态为停止
-      });
+
+      FlutterBluePlus.startScan(
+              timeout: const Duration(seconds: 30),
+              androidUsesFineLocation: true)
+          .then(
+        (_) {
+          // 扫描结束后
+          isScanning.value = false; // 设置扫描状态为停止
+        },
+      );
     }
   }
 
