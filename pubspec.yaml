@@ -18,7 +18,7 @@ dependencies:
   # 权限请求
   permission_handler: ^11.3.1
   # 蓝牙
-  flutter_blue_plus: ^1.34.5
+  flutter_blue_plus: ^1.35.3
   # toast
   fluttertoast: ^8.2.8
 dev_dependencies:
