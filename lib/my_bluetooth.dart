@@ -49,7 +49,6 @@ class BluetoothService extends GetxService {
         Permission.bluetoothScan,
         Permission.bluetoothConnect,
       ].request();
-      print("我正在请求蓝牙权限");
       isBluetoothPermissionGranted.value =
           data[Permission.bluetooth]!.isGranted ||
               data[Permission.bluetoothScan]!.isGranted ||
@@ -69,29 +68,26 @@ class BluetoothService extends GetxService {
       if (state == BluetoothAdapterState.on) {
         // 蓝牙开启时
         isBluetoothOn.value = true;
-      } else {
-        // 蓝牙关闭时
-        isBluetoothOn.value = false;
         if (!kIsWeb && Platform.isAndroid) {
           await _turnOnBluetooth();
         }
+      } else {
+        // 蓝牙关闭时
+        isBluetoothOn.value = false;
       }
     });
   }
 
   /// 尝试开启蓝牙（仅限 Android）
   Future<void> _turnOnBluetooth() async {
-    print('尝试开启蓝牙');
-
     if (isBluetoothPermissionGranted.value) {
       try {
         await FlutterBluePlus.turnOn();
-        print('Bluetooth is turned on');
       } catch (e) {
-        print('Error turning on Bluetooth: $e');
+        return;
       }
     } else {
-      print('没有蓝牙权限');
+      return;
     }
   }
 
