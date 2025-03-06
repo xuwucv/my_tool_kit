@@ -29,6 +29,9 @@ class MyLog {
   /// 打印日志
   static void log(dynamic message,
       {LogLevel level = LogLevel.debug, String? tag}) {
+    // 在正式版时禁用日志
+    if (!kDebugMode) return; // 在 Release 或 Profile 模式下不打印日志
+
     if (!isEnabled) return; // 日志功能被禁用
 
     // 日志等级过滤

@@ -55,10 +55,19 @@ class _MyRefreshState extends State<MyRefresh> {
 
   @override
   Widget build(BuildContext context) {
+    // 获取当前主题
+    final theme = Theme.of(context);
+
     return EasyRefresh(
       controller: _controller,
-      header: widget.header ?? const MaterialHeader(), // 默认 ClassicHeader
-      footer: widget.footer ?? const MaterialFooter(), // 默认 ClassicFooter
+      header: widget.header ??
+          MaterialHeader(
+            color: theme.primaryColor, // 使用当前主题的主色
+          ), // 默认 MaterialHeader
+      footer: widget.footer ??
+          MaterialFooter(
+            color: theme.primaryColor, // 使用当前主题的主色
+          ), // 默认 MaterialFooter
       onRefresh: widget.enableRefresh ? widget.onRefresh : null,
       onLoad: widget.enableLoad ? widget.onLoad : null,
       child: Padding(

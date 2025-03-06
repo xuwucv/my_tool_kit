@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-//用于永久储存
 class MyStorage {
   static final MyStorage _instance = MyStorage._internal();
   factory MyStorage() => _instance;
@@ -13,61 +12,37 @@ class MyStorage {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  /// 设置字符串
-  static Future<bool> setString(String key, String value) async {
+  /// 获取值，根据类型自动判断
+  static Future<dynamic> getValue(String key) async {
     try {
-      return await _prefs.setString(key, value);
+      if (_prefs.containsKey(key)) {
+        // 检查具体值的类型并返回
+        var value = _prefs.get(key);
+        return value;
+      }
+      return null; // 如果 key 不存在，返回 null
     } catch (e) {
-      // 可以做一些日志记录或者抛出异常
-      return Future.value(false);
+      return null; // 捕获错误并返回 null
     }
   }
 
-  /// 设置布尔值
-  static Future<bool> setBool(String key, bool value) async {
+  /// 设置值，根据类型自动判断
+  static Future<bool> setValue(String key, dynamic value) async {
     try {
-      return await _prefs.setBool(key, value);
+      if (value is String) {
+        return await _prefs.setString(key, value);
+      } else if (value is bool) {
+        return await _prefs.setBool(key, value);
+      } else if (value is List<String>) {
+        return await _prefs.setStringList(key, value);
+      } else if (value is int) {
+        return await _prefs.setInt(key, value);
+      } else {
+        throw ArgumentError('Unsupported value type');
+      }
     } catch (e) {
       return Future.value(false);
     }
-  }
-
-  /// 设置字符串列表
-  static Future<bool> setList(String key, List<String> value) async {
-    try {
-      return await _prefs.setStringList(key, value);
-    } catch (e) {
-      return Future.value(false);
-    }
-  }
-
-  /// 设置整数
-  static Future<bool> setInt(String key, int value) async {
-    try {
-      return await _prefs.setInt(key, value);
-    } catch (e) {
-      return Future.value(false);
-    }
-  }
-
-  /// 获取字符串
-  static Future<String> getString(String key) async {
-    return _prefs.getString(key) ?? '';
-  }
-
-  /// 获取布尔值
-  static Future<bool> getBool(String key) async {
-    return _prefs.getBool(key) ?? false;
-  }
-
-  /// 获取字符串列表
-  static Future<List<String>> getList(String key) async {
-    return _prefs.getStringList(key) ?? [];
-  }
-
-  /// 获取整数
-  static Future<int> getInt(String key) async {
-    return _prefs.getInt(key) ?? 0;
   }
 
   /// 移除数据
@@ -77,5 +52,10 @@ class MyStorage {
     } catch (e) {
       return Future.value(false);
     }
+  }
+
+  /// 判断 key 是否存在
+  static bool containsKey(String key) {
+    return _prefs.containsKey(key);
   }
 }

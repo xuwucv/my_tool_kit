@@ -21,6 +21,11 @@ dependencies:
   flutter_blue_plus: ^1.35.3
   # toast
   fluttertoast: ^8.2.8
+  # 图片库
+  flutter_svg: ^2.0.17
+  # 图片缓存
+  cached_network_image: ^3.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

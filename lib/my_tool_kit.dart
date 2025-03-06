@@ -7,3 +7,4 @@ export 'my_locale.dart';
 export 'my_refresh.dart';
 export 'my_bluetooth.dart';
 export 'my_toast.dart';
+export 'my_image.dart';
