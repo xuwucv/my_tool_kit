@@ -91,7 +91,7 @@ class BluetoothService extends GetxService {
   }
 
   /// 开始扫描设备
-  Future<void> startScanning() async {
+  Future<void> startScanning({bool androidUsesFineLocation = false}) async {
     if (isBluetoothOn.value && !isScanning.value) {
       isScanning.value = true;
       scanResultsSubscription ??= FlutterBluePlus.onScanResults.listen(
@@ -104,9 +104,9 @@ class BluetoothService extends GetxService {
       );
 
       FlutterBluePlus.startScan(
-              timeout: const Duration(seconds: 30),
-              androidUsesFineLocation: true)
-          .then(
+        timeout: const Duration(seconds: 30),
+        androidUsesFineLocation: androidUsesFineLocation,
+      ).then(
         (_) {
           // 扫描结束后
           isScanning.value = false; // 设置扫描状态为停止
