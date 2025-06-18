@@ -68,7 +68,7 @@ class BluetoothService extends GetxService {
       } else if (state == BluetoothAdapterState.off) {
         isBluetoothOn.value = false;
         if (!kIsWeb && Platform.isAndroid) {
-          await turnOnBluetooth();
+          turnOnBluetooth();
         }
       } else {
         // 蓝牙关闭时
@@ -78,16 +78,12 @@ class BluetoothService extends GetxService {
   }
 
   /// 尝试开启蓝牙（仅限 Android）
-  Future<void> turnOnBluetooth() async {
+  turnOnBluetooth() {
     if (isBluetoothPermissionGranted.value && !isBluetoothOn.value) {
       try {
-        await FlutterBluePlus.turnOn();
-      } catch (e) {
-        return;
-      }
-    } else {
-      return;
-    }
+        FlutterBluePlus.turnOn();
+      } catch (e) {}
+    } else {}
   }
 
   /// 开始扫描设备
